@@ -101,4 +101,6 @@ public class Partie {
 
 	}
 // La melee 
-
+while (J1.nbZoneConquis<3 |J2.nbZoneConquis<3){
+	
+}
