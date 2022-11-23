@@ -3,77 +3,91 @@ import java.util.*;
 
 public class Etudiant implements Strategies {
 // attributs 
-	private ArrayList<Etudiant> liststud;
-	private int creditECTS ;
-	private int dexterite ; 
-	private int force; 
-	private int resistance ; 
-	private int constitution ; 
-	private String hierachie ; 
-	private boolean reserviste; 
-	private String programme;
+private boolean reserviste = false;
+private int dexterite;
+private int force;
+private int resistance;
+private int constitution;
+private int initiative;
+private int creditsEcts = 10;
+private String hierarchie;
+private String programme;
+
+// constructeurs 
+public Etudiant(int dex, int str, int res, int con, int init) {
+	this.dexterite = dex;
+	this.force = str;
+	this.resistance = res;
+	this.constitution = con;
+	this.initiative = init;
+}
 	
-	//Getter et Setter 
-	
-	public int getCreditECTS() {
-		return creditECTS;
-	}
-	public void setCreditECTS(int creditECTS) {
-		this.creditECTS = creditECTS;
-	}
-	public int getDexterite() {
-		return dexterite;
-	}
-	public void setDexterite(int getDexterite) {
-		this.dexterite = dexterite;
-	}
-	public int getForce() {
-		return force;
-	}
-	public void setForce(int force) {
-		this.force = force;
-	}
-	public int getResistance() {
-		return resistance;
-	}
-	public void setResistance(int resistance) {
-		this.resistance = resistance;
-	}
-	public int getConstitution() {
-		return constitution;
-	}
-	public void setConstitution(int constitution) {
-		this.constitution = constitution;
-	}
-	public String getHierachie() {
-		return hierachie;
-	}
-	public void setHierachie(String hierachie) {
-		this.hierachie = hierachie;
-	}
+	// Getters
 	public boolean getReserviste() {
 		return reserviste;
 	}
-	public void setReserviste(boolean reserviste) {
-		this.reserviste = reserviste;
-	}
-	public String getProgramme() {
-		return programme;
-	}
-	public void setProgramme(String programme) {
-		this.programme = programme;
-	} 
 	
-	// Constructeur 
-	/**
-	 * 
-	 */
-	public Etudiant() {
-		this.creditECTS = creditECTS; 
-		this.programme = programme;
+	public int getDexterite() {
+		return dexterite;
+	}
+	
+	public int getForce() {
+		return force;
+	}
+	
+	public int getResistance() {
+		return resistance;
+	}
+	
+	public int getConstitution() {
+		return constitution;
+	}
+	
+	public int getInitiative() {
+		return initiative;
+	}
+	
+	public int getCreditsEcts() {
+		return creditsEcts;
+	}
+	
+	
+	// Setters
+	public void setReserviste(boolean b) {
+		reserviste = b;
+	}
+	
+	public void setDexterite(int dex) {
+		dexterite = dex;
+	}
+	
+	public void setForce(int str) {
+		force = str;
+	}
+	
+	public void setResistance(int res) {
+		resistance = res;
+	}
+	
+	public void setConstitution(int con) {
+		constitution = con;
+	}
+	
+	public void setInitiative(int init) {
+		initiative = init;
+	}
+	
+	public void setStrategie(Strategie s) {
 		
+	}
 	
+	
+
 	// les methodes 
+	public int comparerInitiative(Etudiant stud1, Etudiant stud2) {
+		return compare(stud1.getInitiative(), stud2.getInitiative());
+	}
+	
 	
 	public static  int addPts(int ability) {
 		ability++;
@@ -84,11 +98,6 @@ public class Etudiant implements Strategies {
 		return ability ; 
 	}
 	
-
-public Object size() {
-	// TODO Auto-generated method stub
-	return null;
-}
 	
 	
 }

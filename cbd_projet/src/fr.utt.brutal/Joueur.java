@@ -11,7 +11,9 @@ public class Joueur{
 
     // Constructor
     public Joueur(String name){
-        nom = name;
+        nom = name;  
+        combattants = new ArrayList<Etudiant>();
+        zonesControlees = new ArrayList<ZoneInfluence>();
     }
 
 
@@ -31,8 +33,8 @@ public class Joueur{
     public String getNom(){
         return nom;
     }
-    public List getcombattants() {
-    	return combattants ;
+    public List getcombattants(int i) {
+    	return combattants.get(i) ;
     }
 
 
@@ -144,4 +146,16 @@ public class Joueur{
 		// TODO Auto-generated method stub
 		return null;
 	}
+    public static void main(String[] args) {
+		Joueur j1 = new Joueur("Lucas");
+		Etudiant e1 = new Etudiant(0, 0, 0, 0, 0);
+		Etudiant e2 = new Etudiant(1, 1, 1, 1, 1);
+		j1.addCombattant(e1);
+		j1.addCombattant(e2);
+
+		j1.attribuerPoints(e1, "dextérité", 10);
+		System.out.println(e1.getDexterite());
+		System.out.println(e2.getDexterite());
+	}
+
 }

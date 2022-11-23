@@ -54,7 +54,7 @@ public class Partie {
 		j = Etudiant.addPts(j);
 		etu.setDéxterité(j);});
 
-		boutonDext.RemoveDex(etuactuel){}// FAIRE PAREIL QU'AU DESSUS POUR LUI
+		boutonDext.RemoveDex(etuactuel)// FAIRE PAREIL QU'AU DESSUS POUR LUI
 
 
 		// Bouton pour ajouter ou enlever la force
@@ -75,7 +75,7 @@ public class Partie {
 		j = Etudiant.addPts(j);
 		etu.setRésistance(j);
 		});
-		boutonRésist.RemoveRésist(etuactuel);//IDEM
+		boutonRésist.RemoveResist(etuactuel);//IDEM
 
 		// Bouton pour ajouter ou enlever la constitution
 
@@ -101,4 +101,6 @@ public class Partie {
 
 	}
 // La melee 
-
+while (J1.nbZoneConquis<3 |J2.nbZoneConquis<3){
+	
+}
