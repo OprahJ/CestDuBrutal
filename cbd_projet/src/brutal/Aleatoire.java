@@ -3,7 +3,9 @@ package brutal;
 import java.util.*;
 import java.util.Random;
 
-public class Aleatoire {
+public class Aleatoire implements Strategie {
+	public Aleatoire(){}
+
 	public void agir(Etudiant stud, List<Etudiant> allies, List<Etudiant> enemies) {
 		Random r = new Random();
 		float f = r.nextFloat();
@@ -25,5 +27,9 @@ public class Aleatoire {
 	            }
 	        }
 		}
+	}
+
+	public String print(){
+		return "aléatoire";
 	}
 }

@@ -15,4 +15,8 @@ public class Offensive implements Strategie {
             }
         }
 	}
+
+    public String print(){
+        return "offensive";
+    }
 }

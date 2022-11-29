@@ -4,15 +4,17 @@ import java.util.*;
 import java.util.Random;
 
 public class ZoneInfluence {
+    private String nom;
 	private Joueur joueurPossesseur = null;
     private Joueur joueur1;
     private Joueur joueur2;
-    private List<Etudiant> etuJ1;
-    private List<Etudiant> etuJ2;
+    private ArrayList<Etudiant> etuJ1;
+    private ArrayList<Etudiant> etuJ2;
 
 
     // Constructor
-    public ZoneInfluence(Joueur p1, Joueur p2){
+    public ZoneInfluence(String name, Joueur p1, Joueur p2){
+        nom = name;
         joueur1 = p1;
         joueur2 = p2;
         etuJ1 = new ArrayList<Etudiant>();
@@ -41,6 +43,10 @@ public class ZoneInfluence {
         return etuJ2;
     }
 
+    public String getNom(){
+        return nom;
+    }
+
 
     // Setters
     public void setJoueurPossesseur(Joueur p){
@@ -65,6 +71,13 @@ public class ZoneInfluence {
     	}
     }
 
+    public boolean equals(Object o){
+        if (o instanceof ZoneInfluence){
+            return (this == o);
+        } else {
+            return false;
+        }
+    }
 
     // Methods
     public void faireAgirEtudiants(){
@@ -123,17 +136,6 @@ public class ZoneInfluence {
 
         return sum;
     }
-	public static void main(String[] args) {
-		Joueur j1 = new Joueur("Lucas");
-		Joueur j2 = new Joueur("Morgane");
-		j1.addCombattant(new Etudiant(2, 2, 2, 2, 2));
-		j1.addCombattant(new Etudiant(3, 3, 3, 3, 3));
-		j1.addCombattant(new Etudiant(2, 2, 2, 2, 0));
-		ZoneInfluence z1 = new ZoneInfluence(j1, j2);
-		j1.affecterEtuZone(j1.getEtudiant(0), z1);
-		j1.affecterEtuZone(j1.getEtudiant(1), z1);
-		j1.affecterEtuZone(j1.getEtudiant(2), z1);
-		Collections.sort(z1.getEtuJ1(), new ComparerInitiative());
-		System.out.println(Collections.min(z1.getEtuJ1(), new ComparerEcts()));
-	}
+	// public static void main(String[] args) {
+	// }
 }

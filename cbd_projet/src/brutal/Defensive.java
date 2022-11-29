@@ -3,7 +3,7 @@ package brutal;
 import java.util.*;
 import java.util.Random;
 
-public class Defensive {
+public class Defensive implements Strategie {
 	public void agir(Etudiant stud, List<Etudiant> allies, List<Etudiant> enemies) {
 		Etudiant ally = Collections.min(allies, new ComparerEcts());
 		Random r = new Random();
@@ -13,4 +13,8 @@ public class Defensive {
             ally.earnEcts((int) (y*(10 + ally.getConstitution())));
         }
 	}
+
+    public String print(){
+        return "defensive";
+    }
 }

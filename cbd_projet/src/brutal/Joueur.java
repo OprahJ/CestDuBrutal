@@ -5,8 +5,8 @@ public class Joueur {
 	private int nbReservistes = 0;
     private int nbPoints = 400;
     private String nom;
-    private List<Etudiant> combattants;
-    private List<ZoneInfluence> zonesControlees;
+    private ArrayList<Etudiant> combattants;
+    private ArrayList<ZoneInfluence> zonesControlees;
 
     // Constructor
     public Joueur(String name){
@@ -18,7 +18,14 @@ public class Joueur {
 
     // Getters
     public int getNbReservistes(){
-        return nbReservistes;
+        Iterator<Etudiant> it = combattants.iterator();
+        int i = 0;
+        while (it.hasNext()){
+            if (it.next().getReserviste()){
+                i++;
+            }
+        }
+        return i;
     }
 
     public int getNbPoints(){
@@ -37,12 +44,16 @@ public class Joueur {
     	return combattants.get(i);
     }
 
-
-    //Setters
-    public void setNbReservistes(int nbr){
-        nbReservistes = nbr;
+    public ArrayList<Etudiant> getEtudiants(){
+        return combattants;
     }
 
+    public int getNbEtudiant(){
+        return combattants.size();
+    }
+
+
+    //Setters
     public void setNbPoints(int nbr){
         nbPoints = nbr;
     }
@@ -75,41 +86,60 @@ public class Joueur {
 
     public void attribuerPoints(Etudiant stud, String ability, int nbr) {
     	char firstChar = ability.toLowerCase().charAt(0);
-    	
         if (nbr <= nbPoints) {
             switch (firstChar) {
                 case 'd':
-                    if (nbr + stud.getDexterite() <= 10) {
-                        nbPoints -= nbr;
-                        stud.setDexterite(stud.getDexterite() + nbr);
+                    if (nbr + stud.getDexterite() <= 10 && nbr + stud.getDexterite() >= 0) {
+                        if ((stud.getHierarchie() == "normal") || (stud.getHierarchie() == "elite" && nbr + stud.getDexterite() >= 1) || (stud.getHierarchie() == "maitre" && nbr + stud.getDexterite() >= 2)){
+                            nbPoints -= nbr;
+                            stud.setDexterite(stud.getDexterite() + nbr);
+                        } else {
+                            System.out.println("Vous ne pouvez pas retirer autant de points, l'étudiant est " + stud.getHierarchie());
+                        }
                     }
                     break;
 
                 case 'f':
-                    if (nbr + stud.getForce() <= 10) {
-                        nbPoints -= nbr;
-                        stud.setForce(stud.getForce() + nbr);
+                    if (nbr + stud.getForce() <= 10 && nbr + stud.getForce() >= 0) {
+                        if ((stud.getHierarchie() == "normal") || (stud.getHierarchie() == "elite" && nbr + stud.getForce() >= 1) || (stud.getHierarchie() == "maitre" && nbr + stud.getForce() >= 2)){
+                            nbPoints -= nbr;
+                            stud.setForce(stud.getForce() + nbr);
+                        } else {
+                            System.out.println("Vous ne pouvez pas retirer autant de points, l'étudiant est " + stud.getHierarchie());
+                        }
                     }
                     break;
 
                 case 'r':
-                    if (nbr + stud.getResistance() <= 10) {
-                        nbPoints -= nbr;
-                        stud.setResistance(stud.getResistance() + nbr);
+                    if (nbr + stud.getResistance() <= 10 && nbr + stud.getResistance() >= 0) {
+                        if ((stud.getHierarchie() == "normal") || (stud.getHierarchie() == "elite" && nbr + stud.getResistance() >= 1) || (stud.getHierarchie() == "maitre" && nbr + stud.getResistance() >= 2)){
+                            nbPoints -= nbr;
+                            stud.setResistance(stud.getResistance() + nbr);
+                        } else {
+                            System.out.println("Vous ne pouvez pas retirer autant de points, l'étudiant est " + stud.getHierarchie());
+                        }
                     }
                     break;
 
                 case 'c':
-                    if (nbr + stud.getConstitution() <= 30) {
-                        nbPoints -= nbr;
-                        stud.setConstitution(stud.getConstitution() + nbr);
+                    if (nbr + stud.getConstitution() <= 30 && nbr + stud.getConstitution() >= 0) {
+                        if ((stud.getHierarchie() == "normal") || (stud.getHierarchie() == "elite" && nbr + stud.getConstitution() >= 5) || (stud.getHierarchie() == "maitre" && nbr + stud.getConstitution() >= 10)){
+                            nbPoints -= nbr;
+                            stud.setConstitution(stud.getConstitution() + nbr);
+                        } else {
+                            System.out.println("Vous ne pouvez pas retirer autant de points, l'étudiant est " + stud.getHierarchie());
+                        }
                     }
                     break;
 
                 case 'i':
-                    if (nbr + stud.getInitiative() <= 10) {
-                        nbPoints -= nbr;
-                        stud.setInitiative(stud.getInitiative() + nbr);
+                    if (nbr + stud.getInitiative() <= 10 && nbr + stud.getInitiative() >= 0) {
+                        if ((stud.getHierarchie() == "normal") || (stud.getHierarchie() == "elite" && nbr + stud.getInitiative() >= 1) || (stud.getHierarchie() == "maitre" && nbr + stud.getInitiative() >= 2)){
+                            nbPoints -= nbr;
+                            stud.setInitiative(stud.getInitiative() + nbr);
+                        } else {
+                            System.out.println("Vous ne pouvez pas retirer autant de points, l'étudiant est " + stud.getHierarchie());
+                        }
                     }
                     break;
 
@@ -139,19 +169,19 @@ public class Joueur {
             nbReservistes--;
             stud.setReserviste(false);
         }
+        stud.setZone(zone);
         zone.addEtudiant(this, stud);
     }
 
-	public static void main(String[] args) {
-		Joueur j1 = new Joueur("Lucas");
-		Etudiant e1 = new Etudiant(0, 0, 0, 0, 0);
-		Etudiant e2 = new Etudiant(1, 1, 1, 1, 1);
-		j1.addCombattant(e1);
-		j1.addCombattant(e2);
-
-		j1.attribuerPoints(e1, "dextérité", 10);
-		System.out.println(e1.getDexterite());
-		System.out.println(e2.getDexterite());
-	}
+    public void printEtudiants(){
+        System.out.println("\n" + this.getNom() + " voici vos combattants :");
+        Iterator<Etudiant> it= combattants.iterator();
+        int i = 0;
+        while (it.hasNext()){
+            i++;
+            System.out.println("Etudiant " + i + " | " + it.next());
+        }
+        System.out.println("\n");
+    }
 
 }
