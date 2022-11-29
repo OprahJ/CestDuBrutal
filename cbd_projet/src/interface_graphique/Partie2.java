@@ -1,8 +1,11 @@
-package fr.utt.brutal;
+package interface_graphique;
 
 import java.util.*;
 
 import javax.swing.JButton;
+
+import brutal.Etudiant;
+import brutal.Joueur;
 
 
 //---------------------------------------------------------------------------------------------------------------

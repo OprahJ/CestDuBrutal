@@ -1,4 +1,4 @@
-package fr.utt.brutal;
+package brutal;
 
 import java.util.*;
 

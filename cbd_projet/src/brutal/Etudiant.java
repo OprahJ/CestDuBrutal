@@ -1,26 +1,25 @@
-package fr.utt.brutal;
-import java.util.*;
+package brutal;
 
-public class Etudiant implements Strategies {
+public class Etudiant {
 // attributs 
-private boolean reserviste = false;
-private int dexterite;
-private int force;
-private int resistance;
-private int constitution;
-private int initiative;
-private int creditsEcts = 10;
-private String hierarchie;
-private String programme;
-
-// constructeurs 
-public Etudiant(int dex, int str, int res, int con, int init) {
-	this.dexterite = dex;
-	this.force = str;
-	this.resistance = res;
-	this.constitution = con;
-	this.initiative = init;
-}
+	private boolean reserviste = false;
+	private int dexterite;
+	private int force;
+	private int resistance;
+	private int constitution;
+	private int initiative;
+	private int creditsEcts = 10;
+	private String hierarchie;
+	private String programme;
+	private Strategie strategie;
+	
+	public Etudiant(int dex, int str, int res, int con, int init) {
+		this.dexterite = dex;
+		this.force = str;
+		this.resistance = res;
+		this.constitution = con;
+		this.initiative = init;
+	}
 	
 	// Getters
 	public boolean getReserviste() {
@@ -50,6 +49,10 @@ public Etudiant(int dex, int str, int res, int con, int init) {
 	public int getCreditsEcts() {
 		return creditsEcts;
 	}
+
+	public Strategie getStrategie() {
+		return strategie;
+	}
 	
 	
 	// Setters
@@ -77,18 +80,20 @@ public Etudiant(int dex, int str, int res, int con, int init) {
 		initiative = init;
 	}
 	
-	public void setStrategie(Strategie s) {
-		
+	public void setStrategie(Strategie strat) {
+		strategie = strat;
 	}
 	
+	public void loseEcts(int ects){
+		creditsEcts -= ects;
+	}
+
+	public void earnEcts(int ects){
+		creditsEcts += ects;
+	}
 	
 
-	// les methodes 
-	public int comparerInitiative(Etudiant stud1, Etudiant stud2) {
-		return compare(stud1.getInitiative(), stud2.getInitiative());
-	}
-	
-	
+	//call me maybe 0781505966
 	public static  int addPts(int ability) {
 		ability++;
 		return ability ; 

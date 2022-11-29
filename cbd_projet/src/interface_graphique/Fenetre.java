@@ -1,4 +1,4 @@
-package fr.utt.brutal;
+package interface_graphique;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

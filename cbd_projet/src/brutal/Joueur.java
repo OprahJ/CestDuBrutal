@@ -1,17 +1,16 @@
-package fr.utt.brutal;
+package brutal;
 import java.util.*;
-public class Joueur{
-    private int nbReservistes = 0;
+
+public class Joueur {
+	private int nbReservistes = 0;
     private int nbPoints = 400;
     private String nom;
     private List<Etudiant> combattants;
     private List<ZoneInfluence> zonesControlees;
-    private int nbEtuZone ; 
-    private int nbZoneConquis;
 
     // Constructor
     public Joueur(String name){
-        nom = name;  
+        nom = name;
         combattants = new ArrayList<Etudiant>();
         zonesControlees = new ArrayList<ZoneInfluence>();
     }
@@ -33,8 +32,9 @@ public class Joueur{
     public String getNom(){
         return nom;
     }
-    public List getcombattants(int i) {
-    	return combattants.get(i) ;
+    
+    public Etudiant getEtudiant(int i) {
+    	return combattants.get(i);
     }
 
 
@@ -52,7 +52,7 @@ public class Joueur{
     }
 
     public void addCombattant(Etudiant stud){
-        combattants.append(stud);
+        combattants.add(stud);
     }
 
     public void removeCombattant(Etudiant stud){
@@ -60,7 +60,7 @@ public class Joueur{
     }
 
     public void addZoneControlee(ZoneInfluence zone){
-        zonesControlees.append(zone);
+        zonesControlees.add(zone);
     }
 
 
@@ -73,46 +73,47 @@ public class Joueur{
         }
     }
 
-    public void attribuerPoints(Etudiant stud, String ability, int nbr){
+    public void attribuerPoints(Etudiant stud, String ability, int nbr) {
+    	char firstChar = ability.toLowerCase().charAt(0);
     	
-        if (nbr <= nbPoints){
-            switch(ability){
-                case "dexterite" :
-                    if (nbr + stud.getDexterite() <= 10){
+        if (nbr <= nbPoints) {
+            switch (firstChar) {
+                case 'd':
+                    if (nbr + stud.getDexterite() <= 10) {
                         nbPoints -= nbr;
                         stud.setDexterite(stud.getDexterite() + nbr);
                     }
                     break;
 
-                case "force" :
-                    if (nbr + stud.getForce() <= 10){
+                case 'f':
+                    if (nbr + stud.getForce() <= 10) {
                         nbPoints -= nbr;
                         stud.setForce(stud.getForce() + nbr);
                     }
                     break;
-                
-                case "resistance" :
-                    if (nbr + stud.getResistance() <= 10){
+
+                case 'r':
+                    if (nbr + stud.getResistance() <= 10) {
                         nbPoints -= nbr;
                         stud.setResistance(stud.getResistance() + nbr);
                     }
                     break;
 
-                case "constitution" :
-                    if (nbr + stud.getConstitution() <= 30){
+                case 'c':
+                    if (nbr + stud.getConstitution() <= 30) {
                         nbPoints -= nbr;
                         stud.setConstitution(stud.getConstitution() + nbr);
                     }
                     break;
 
-                case "Initiative" :
-                    if (nbr + stud.getInitiative() <= 10){
+                case 'i':
+                    if (nbr + stud.getInitiative() <= 10) {
                         nbPoints -= nbr;
                         stud.setInitiative(stud.getInitiative() + nbr);
                     }
                     break;
 
-                default :
+                default:
                     System.out.println("Saisie incorrecte.\n");
                     break;
 
@@ -141,12 +142,7 @@ public class Joueur{
         zone.addEtudiant(this, stud);
     }
 
-
-	public Iterator<Joueur> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		Joueur j1 = new Joueur("Lucas");
 		Etudiant e1 = new Etudiant(0, 0, 0, 0, 0);
 		Etudiant e2 = new Etudiant(1, 1, 1, 1, 1);

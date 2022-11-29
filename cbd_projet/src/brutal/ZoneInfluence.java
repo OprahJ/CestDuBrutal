@@ -1,5 +1,4 @@
-package fr.utt.brutal;
-
+package brutal;
 
 import java.util.*;
 import java.util.Random;
@@ -62,7 +61,7 @@ public class ZoneInfluence {
     	} else if (p.equals(joueur2)) {
     		etuJ2.add(stud);
     	} else {
-    		System.out.println("Le joueur sÃ©lectionnÃ© ne combat pas sur cette zone.\n");
+    		System.out.println("Le joueur sélectionné ne combat pas sur cette zone.\n");
     	}
     }
 
@@ -78,19 +77,19 @@ public class ZoneInfluence {
         
         while (it1.hasNext() && it2.hasNext() && getNbEtu(joueur1) > 0 && getNbEtu(joueur2) > 0){
             if (studP1.getInitiative() > studP2.getInitiative()){
-                studP1.strategie.agir(studP1, etuJ1, etuJ2);
+                studP1.getStrategie().agir(studP1, etuJ1, etuJ2);
                 studP1 = it1.next();
             } else if (studP1.getInitiative() < studP2.getInitiative()){
-                studP2.strategie.agir(studP2, etuJ2, etuJ1);
+                studP2.getStrategie().agir(studP2, etuJ2, etuJ1);
                 studP2 = it2.next();
             } else {
                 Random r = new Random();
                 float f = r.nextFloat();
                 if (f < 0.5){
-                    studP1.strategie.agir(studP1, etuJ1, etuJ2);
+                    studP1.getStrategie().agir(studP1, etuJ1, etuJ2);
                     studP1 = it1.next();
                 } else {
-                    studP2.strategie.agir(studP2, etuJ2, etuJ1);
+                    studP2.getStrategie().agir(studP2, etuJ2, etuJ1);
                     studP2 = it2.next();
                 }
             }
@@ -103,7 +102,7 @@ public class ZoneInfluence {
     	} else if (p.equals(joueur2)) {
     		return etuJ2.size();
     	} else {
-    		System.out.println("Le joueur sÃ©lectionnÃ© ne combat pas sur cette zone.\n");
+    		System.out.println("Le joueur sélectionné ne combat pas sur cette zone.\n");
             return 0;
     	}
     }

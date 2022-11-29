@@ -1,6 +1,8 @@
-package fr.utt.brutal;
+package interface_graphique;
 
 import java.util.*;
+
+import brutal.Etudiant;
 
 
 public class Button {
