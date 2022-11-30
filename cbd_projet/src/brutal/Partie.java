@@ -45,7 +45,17 @@ public class Partie {
 			catch(IOException IOE){
 				IOE.printStackTrace();
 			}
-			if (in1.length() > 0){
+			if (!in1.equals("")){
+				System.out.println("Combien de points souhaitez-vous ajouter ou soustraire ?");
+				try{
+					in2 = input.readLine();
+				}
+				catch(IOException IOE){
+					IOE.printStackTrace();
+				}
+				nbr = Integer.parseInt(in2);
+				player.attribuerPoints(stud, in1, nbr);
+			} else if (in1.length() > 0){
 				if (in1.toLowerCase().charAt(0) == 's'){
 					System.out.println("Choisir une stratégie parmi : aléatoire - offensive - défensive");
 					try{
@@ -72,16 +82,6 @@ public class Partie {
 							break;
 					}
 				}
-			} else if (!in1.equals("")){
-				System.out.println("Combien de points souhaitez-vous ajouter ou soustraire ?");
-				try{
-					in2 = input.readLine();
-				}
-				catch(IOException IOE){
-					IOE.printStackTrace();
-				}
-				nbr = Integer.parseInt(in2);
-				player.attribuerPoints(stud, in1, nbr);
 			}
 		} while (!in1.equals(""));
 	}
@@ -129,16 +129,21 @@ public class Partie {
 		Iterator<Joueur> itP = joueurs.iterator();
 		Iterator<ZoneInfluence> itZ;
 		Iterator<Etudiant> itS;
+		Joueur player;
+		ZoneInfluence zone;
 		Etudiant stud;
 		BufferedReader input = new BufferedReader (new InputStreamReader (System.in));
 		String in = "";
-		int nbr;
-		int i;
+		int nbr, i, stud_count;
+		boolean min;
+		Random r = new Random();
 		while (itP.hasNext()){
-			Joueur player = itP.next();
+			player = itP.next();
+			stud_count = 0;
 			itZ = zones.iterator();
 			while (itZ.hasNext()){
-				ZoneInfluence zone = itZ.next();
+				min = false;
+				zone = itZ.next();
 				do{
 					itS = player.getEtudiants().iterator();
 					i = 0;
@@ -149,7 +154,7 @@ public class Partie {
 							System.out.println("Etudiant " + i + " | " + stud);
 						}
 					}
-					System.out.println(player.getNom() + " quel étudiant mettre dans la zone "  + zone.getNom());
+					System.out.println(player.getNom() + " quel étudiant mettre dans la zone "  + zone.getNom() + " (vous devez en mettre au moins 1)");
 					try{
 						in = input.readLine();
 					}
@@ -158,19 +163,35 @@ public class Partie {
 					}
 					if (!in.equals("")){
 						nbr = Integer.parseInt(in);
-						if (nbr > 0 && nbr < 21 && player.getEtudiant(nbr - 1).getZone() == null){
-							player.affecterEtuZone(player.getEtudiant(nbr - 1), zone);
+						stud = player.getEtudiant(nbr - 1);
+						if (nbr > 0 && nbr < 21 && stud.getZone() == null && !stud.getReserviste()){
+							player.affecterEtuZone(stud, zone);
 							System.out.println("L'étudiant " + nbr + " a été affecté à la zone " + zone.getNom());
+							stud_count++;
+							min = true;
 						} else if (nbr <= 0 || nbr >= 21){
 							System.out.println("Saisie incorrecte.");
 						} else {
 							System.out.println("L'étudiant " + nbr + " est déjà dans une zone");
 						}
 					}
-				}while(!in.equals(""));
+				}while(!in.equals("") || !min);
+			}
+			if (stud_count < (player.getNbEtudiant() - player.getNbReservistes())){
+				itS = player.getEtudiants().iterator();
+				nbr = 0;
+				while (itS.hasNext()){
+					stud = itS.next();
+					nbr++;
+					if (!stud.getReserviste() && stud.getZone() == null){
+						zone = zones.get((int) (r.nextFloat((float) 0.999)*zones.size()));
+						player.affecterEtuZone(player.getEtudiant(nbr - 1), zone);
+						System.out.println("L'étudiant " + nbr + " a été affecté à la zone " + zone.getNom());
+						stud_count++;
+					}
+				}
 			}
 		}
-		
 	}
 
     public void faireCombattre() {
@@ -224,7 +245,11 @@ public class Partie {
 		partie.addJoueur(joueur1);
 		partie.addJoueur(joueur2);
 		partie.parametrerTroupes();
-		partie.addZone(new ZoneInfluence("cour", joueur1, joueur2));
+		partie.addZone(new ZoneInfluence("bibliothèque", joueur1, joueur2));
+		partie.addZone(new ZoneInfluence("bde", joueur1, joueur2));
+		partie.addZone(new ZoneInfluence("quartier administratif", joueur1, joueur2));
+		partie.addZone(new ZoneInfluence("halles industrielles", joueur1, joueur2));
+		partie.addZone(new ZoneInfluence("halles sportives", joueur1, joueur2));
 		partie.affecterTroupesZones();
 		// Scanner scan = new Scanner(System.in);
 		// System.out.println("Entrez votre nom");

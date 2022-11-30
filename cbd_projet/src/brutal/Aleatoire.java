@@ -29,7 +29,8 @@ public class Aleatoire implements Strategie {
 		}
 	}
 
-	public String print(){
-		return "aléatoire";
-	}
+	public String toString(){
+        StringBuffer sb = new StringBuffer("aléatoire");
+        return sb.toString();
+    }
 }

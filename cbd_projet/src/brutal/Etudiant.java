@@ -121,7 +121,7 @@ public class Etudiant {
 	}
 
 	public String toString(){
-		StringBuffer sb = new StringBuffer("hierarchie : " + hierarchie + " | dexterite : " + dexterite + " | force : " + force + " | resistance : " + resistance + " | constitution : " + constitution + " | initiative : " + initiative + " | stratégie : " + strategie.print() + " | crédits ECTS : " + creditsEcts);
+		StringBuffer sb = new StringBuffer("hierarchie : " + hierarchie + " | dexterite : " + dexterite + " | force : " + force + " | resistance : " + resistance + " | constitution : " + constitution + " | initiative : " + initiative + " | stratégie : " + strategie + " | crédits ECTS : " + creditsEcts);
 		return sb.toString();
 	}
 }

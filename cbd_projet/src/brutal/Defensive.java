@@ -14,7 +14,8 @@ public class Defensive implements Strategie {
         }
 	}
 
-    public String print(){
-        return "defensive";
+    public String toString(){
+        StringBuffer sb = new StringBuffer("défensive");
+        return sb.toString();
     }
 }
