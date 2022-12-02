@@ -13,6 +13,10 @@ public class Partie {
 		zones = new ArrayList<ZoneInfluence>();
 	}
 
+	public Joueur getJoueurGagnant(){
+		return joueurGagnant;
+	}
+
 	public void addJoueur(Joueur p){
 		joueurs.add(p);
 	}
@@ -88,6 +92,7 @@ public class Partie {
 
 	public void choisirReserviste(Joueur player){
 		BufferedReader input = new BufferedReader (new InputStreamReader (System.in));
+		player.printEtudiantsNonReservistes();
 		System.out.println(player.getNom() + " veuillez choisir un réserviste");
 		String in = "";
 		try{
@@ -145,15 +150,7 @@ public class Partie {
 				min = false;
 				zone = itZ.next();
 				do{
-					itS = player.getEtudiants().iterator();
-					i = 0;
-					while (itS.hasNext()){
-						i++;
-						stud = itS.next();
-						if (stud.getZone() == null && !stud.getReserviste()){
-							System.out.println("Etudiant " + i + " | " + stud);
-						}
-					}
+					player.printEtudiantsNonReservistes();
 					System.out.println(player.getNom() + " quel étudiant mettre dans la zone "  + zone.getNom() + " (vous devez en mettre au moins 1)");
 					try{
 						in = input.readLine();
@@ -194,24 +191,36 @@ public class Partie {
 		}
 	}
 
-    public void faireCombattre() {
+    public void faireCombattre(ZoneInfluence conqueredZone, Joueur conquerer) {
 		Iterator<ZoneInfluence> it = zones.iterator();
-		boolean zoneConquise = false;
-		while (it.hasNext() && !zoneConquise) {
-			ZoneInfluence zone = it.next();
+		boolean startBreak = false;
+		ZoneInfluence zone;
+		while (it.hasNext() && !startBreak) {
+			zone = it.next();
 			if (zone.getJoueurPossesseur() == null) {
+				System.out.println("\nCombat en cours sur la zone " + zone.getNom() + ", il y a actuellement " + zone.getCredits() + " crédits sur la zone");
 				zone.faireAgirEtudiants();
 				if (zone.getNbEtu(zone.getJoueur1()) == 0) {
-					zone.setJoueurPossesseur(zone.getJoueur1());
-					zone.getJoueurPossesseur().addZoneControlee(zone);
-					zoneConquise = true;
-				} else if (zone.getNbEtu(zone.getJoueur2()) == 0){
 					zone.setJoueurPossesseur(zone.getJoueur2());
 					zone.getJoueurPossesseur().addZoneControlee(zone);
-					zoneConquise = true;
+					conqueredZone = zone;
+					conquerer = zone.getJoueurPossesseur();
+					startBreak = true;
+					System.out.println(conquerer.getNom() + " est désormais possesseur de la zone " + zone.getNom());
+				} else if (zone.getNbEtu(zone.getJoueur2()) == 0){
+					zone.setJoueurPossesseur(zone.getJoueur1());
+					zone.getJoueurPossesseur().addZoneControlee(zone);
+					conqueredZone = zone;
+					conquerer = zone.getJoueurPossesseur();
+					startBreak = true;
+					System.out.println(conquerer.getNom() + " est désormais possesseur de la zone " + zone.getNom());
+				} else {
+					System.out.println("Il reste " + zone.getCredits() + " crédits après le combat sur la zone " + zone.getNom());
 				}
-				if (zone.getJoueurPossesseur().getNbZonesControlees() >= 3) {
-					joueurGagnant = zone.getJoueurPossesseur();
+				if (zone.getJoueurPossesseur() != null) {
+					if (zone.getJoueurPossesseur().getNbZonesControlees() >= 3){
+						joueurGagnant = zone.getJoueurPossesseur();
+					}
 				}
 			}
 		}
@@ -251,28 +260,14 @@ public class Partie {
 		partie.addZone(new ZoneInfluence("halles industrielles", joueur1, joueur2));
 		partie.addZone(new ZoneInfluence("halles sportives", joueur1, joueur2));
 		partie.affecterTroupesZones();
-		// Scanner scan = new Scanner(System.in);
-		// System.out.println("Entrez votre nom");
-		// String str = scan.nextLine();
-		// System.out.println(str);
-		// System.out.println("Entrez votre nom");
-		// str = scan.nextLine();
-		// System.out.println(str);
-		// scan.close();
-
-
-		// Joueur joueur2 = new Joueur("Morane");
-		// partie.addJoueur(joueur2);
-		// partie.addZone(new ZoneInfluence(joueur1, joueur2));
-		// partie.addZone(new ZoneInfluence(joueur1, joueur2));
-		// partie.addZone(new ZoneInfluence(joueur1, joueur2));
-		// partie.addZone(new ZoneInfluence(joueur1, joueur2));
-		// partie.addZone(new ZoneInfluence(joueur1, joueur2));	
-		// partie.parametrerTroupes();
-		// partie.affecterTroupesZones();
-		// while (joueurGagnant == null){
-		// 	partie.faireCombattre();
-		// 	partie.faireTreve();
+		// ZoneInfluence zoneConquise;
+		// Joueur joueurConquerant;
+		// while (partie.getJoueurGagnant() == null){
+		// 	zoneConquise = null;
+		// 	joueurConquerant = null;
+		// 	while (zoneConquise == null){
+		// 		partie.faireCombattre(zoneConquise, joueurConquerant);
+		// 	}
 		// }
 	}
 }

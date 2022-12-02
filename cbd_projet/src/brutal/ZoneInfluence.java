@@ -85,10 +85,9 @@ public class ZoneInfluence {
         Collections.sort(etuJ2, new ComparerInitiative());
         Iterator<Etudiant> it1 = etuJ1.iterator();
         Iterator<Etudiant> it2 = etuJ2.iterator();
-        Etudiant studP1 = it1.next();
-        Etudiant studP2 = it2.next();
-        
-        while (it1.hasNext() && it2.hasNext() && getNbEtu(joueur1) > 0 && getNbEtu(joueur2) > 0){
+        Etudiant studP1 = etuJ1.get(0);
+        Etudiant studP2 = etuJ2.get(0);;
+        while (it1.hasNext() && it2.hasNext() && this.getNbEtu(joueur1) > 0 && this.getNbEtu(joueur2) > 0){
             if (studP1.getInitiative() > studP2.getInitiative()){
                 studP1.getStrategie().agir(studP1, etuJ1, etuJ2);
                 studP1 = it1.next();

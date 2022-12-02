@@ -24,6 +24,7 @@ public class Aleatoire implements Strategie {
 	            enemy.loseEcts((int) (y*(1 + Math.max(0, Math.min(100, 10*stud.getForce() - 5*enemy.getResistance())))*10));
 	            if (enemy.getCreditsEcts() < 0) {
 	            	enemies.remove(enemy);
+					System.out.println("Un étudiant de est hors de combat");
 	            }
 	        }
 		}

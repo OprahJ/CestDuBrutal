@@ -184,4 +184,18 @@ public class Joueur {
         System.out.println("\n");
     }
 
+    public void printEtudiantsNonReservistes(){
+        Etudiant stud;
+		int i = 0;
+		System.out.print("\n");
+		Iterator<Etudiant> itS = this.getEtudiants().iterator();
+		while (itS.hasNext()){
+			i++;
+			stud = itS.next();
+			if (stud.getZone() == null && !stud.getReserviste()){
+				System.out.println("Etudiant " + i + " | " + stud);
+			}
+		}
+    }
+
 }
