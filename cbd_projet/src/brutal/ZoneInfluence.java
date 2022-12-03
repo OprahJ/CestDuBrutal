@@ -8,8 +8,9 @@ public class ZoneInfluence {
 	private Joueur joueurPossesseur = null;
     private Joueur joueur1;
     private Joueur joueur2;
-    private ArrayList<Etudiant> etuJ1;
-    private ArrayList<Etudiant> etuJ2;
+    private ArrayList<Etudiant> etudiants;
+    // private ArrayList<Etudiant> etuJ1;
+    // private ArrayList<Etudiant> etuJ2;
 
 
     // Constructor
@@ -17,8 +18,7 @@ public class ZoneInfluence {
         nom = name;
         joueur1 = p1;
         joueur2 = p2;
-        etuJ1 = new ArrayList<Etudiant>();
-        etuJ2 = new ArrayList<Etudiant>();
+        etudiants = new ArrayList<Etudiant>();
     }
 
 
@@ -35,16 +35,12 @@ public class ZoneInfluence {
         return joueur2;
     }
 
-    public List<Etudiant> getEtuJ1(){
-        return etuJ1;
-    }
-
-    public List<Etudiant> getNbEtuJ2(){
-        return etuJ2;
-    }
-
     public String getNom(){
         return nom;
+    }
+
+    public ArrayList<Etudiant> getEtudiants(){
+        return etudiants;
     }
 
 
@@ -62,10 +58,8 @@ public class ZoneInfluence {
     }
 
     public void addEtudiant(Joueur p, Etudiant stud){
-    	if (p.equals(joueur1)) {
-    		etuJ1.add(stud);
-    	} else if (p.equals(joueur2)) {
-    		etuJ2.add(stud);
+    	if (p.equals(joueur1) || p.equals(joueur2)) {
+            etudiants.add(stud);
     	} else {
     		System.out.println("Le joueur sélectionné ne combat pas sur cette zone.\n");
     	}
@@ -79,56 +73,57 @@ public class ZoneInfluence {
         }
     }
 
+    public ArrayList<Etudiant> getFilteredEtudiants (ArrayList<Etudiant> students, Joueur player){
+        ArrayList<Etudiant> results = new ArrayList<Etudiant>();
+        for (Etudiant stud: students){
+            if (stud.getCreditsEcts() > 0 && stud.getJoueur().equals(player)){
+                results.add(stud);
+            }
+        }
+        // Collections.sort(results, new ComparerEcts());
+        return results;
+    }
+
     // Methods
     public void faireAgirEtudiants(){
-        Collections.sort(etuJ1, new ComparerInitiative());
-        Collections.sort(etuJ2, new ComparerInitiative());
-        Iterator<Etudiant> it1 = etuJ1.iterator();
-        Iterator<Etudiant> it2 = etuJ2.iterator();
-        Etudiant studP1 = etuJ1.get(0);
-        Etudiant studP2 = etuJ2.get(0);;
-        while (it1.hasNext() && it2.hasNext() && this.getNbEtu(joueur1) > 0 && this.getNbEtu(joueur2) > 0){
-            if (studP1.getInitiative() > studP2.getInitiative()){
-                studP1.getStrategie().agir(studP1, etuJ1, etuJ2);
-                studP1 = it1.next();
-            } else if (studP1.getInitiative() < studP2.getInitiative()){
-                studP2.getStrategie().agir(studP2, etuJ2, etuJ1);
-                studP2 = it2.next();
-            } else {
-                Random r = new Random();
-                float f = r.nextFloat();
-                if (f < 0.5){
-                    studP1.getStrategie().agir(studP1, etuJ1, etuJ2);
-                    studP1 = it1.next();
+        Collections.sort(etudiants, new ComparerInitiative());
+        Etudiant stud;
+
+        while (this.getNbEtu(joueur1) > 0 && this.getNbEtu(joueur2) > 0){
+            stud = etudiants.get(0);
+            if (stud.getCreditsEcts() > 0){
+                if (stud.getJoueur().equals(joueur1)){
+                    stud.getStrategie().agir(stud, this.getFilteredEtudiants(etudiants, joueur1), this.getFilteredEtudiants(etudiants, joueur2));
                 } else {
-                    studP2.getStrategie().agir(studP2, etuJ2, etuJ1);
-                    studP2 = it2.next();
+                    stud.getStrategie().agir(stud, this.getFilteredEtudiants(etudiants, joueur2), this.getFilteredEtudiants(etudiants, joueur1));
                 }
             }
+            etudiants.remove(stud);
+            etudiants.add(stud);
         }
     }
 
     public int getNbEtu(Joueur p){
-    	if (p.equals(joueur1)) {
-    		return etuJ1.size();
-    	} else if (p.equals(joueur2)) {
-    		return etuJ2.size();
-    	} else {
-    		System.out.println("Le joueur sélectionné ne combat pas sur cette zone.\n");
+        int sum = 0;
+        Iterator <Etudiant> it= etudiants.iterator();
+        Etudiant stud;
+        if (joueur1.equals (p) || joueur2.equals (p)){
+            while (it.hasNext()){
+                stud = it.next();
+                if (stud.getJoueur().equals(p)){
+                    sum++;
+                }
+            }
+            return sum;
+        } else {
+            System.out.println("Le joueur sélectionné ne combat pas sur cette zone.\n");
             return 0;
-    	}
+        }
     }
 
     public int getCredits(){
         int sum = 0;
-        Iterator <Etudiant> it;
-
-        it = etuJ1.iterator();
-        while (it.hasNext()){
-            sum += it.next().getCreditsEcts();
-        }
-
-        it = etuJ2.iterator();
+        Iterator <Etudiant> it= etudiants.iterator();
         while (it.hasNext()){
             sum += it.next().getCreditsEcts();
         }

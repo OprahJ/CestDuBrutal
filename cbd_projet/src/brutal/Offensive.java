@@ -9,10 +9,11 @@ public class Offensive implements Strategie {
         int x = r.nextInt(100);
         if (x <= 20 + 3*stud.getDexterite()){
             float y = r.nextFloat((float) 1.0);
-            enemy.loseEcts((int) (y*(1 + Math.max(0, Math.min(100, 10*stud.getForce() - 5*enemy.getResistance())))*10));
+            enemy.loseEcts((int) (y*(1 + Math.max(0, Math.min(100, 10*stud.getForce() - 5*enemy.getResistance()))/100)*10));
+            System.out.println("un etu attaque à " + ((int) (y*(1 + Math.max(0, Math.min(100, 10*stud.getForce() - 5*enemy.getResistance()))/100)*10)));
             if (enemy.getCreditsEcts() <= 0) {
-            	enemies.remove(enemy);
-                System.out.println("Un étudiant de est hors de combat");
+                stud.getZone().getEtudiants().remove(enemy);
+                System.out.println("Un étudiant " + enemy.getHierarchie() + " est hors de combat");
             }
         }
 	}

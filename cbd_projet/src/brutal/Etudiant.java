@@ -13,8 +13,9 @@ public class Etudiant {
 	private String programme;
 	private Strategie strategie;
 	private ZoneInfluence zone = null;
+	private Joueur joueur = null;
 	
-	public Etudiant(String type, int dex, int str, int res, int con, int init, Strategie strat) {
+	public Etudiant(String type, int dex, int str, int res, int con, int init, Strategie strat, Joueur player) {
 		hierarchie = type;
 		dexterite = dex;
 		force = str;
@@ -22,6 +23,7 @@ public class Etudiant {
 		constitution = con;
 		initiative = init;
 		strategie = strat;
+		joueur = player;
 		if (type == "elite"){
 			dexterite++;
 			force++;
@@ -76,6 +78,10 @@ public class Etudiant {
 
 	public ZoneInfluence getZone(){
 		return zone;
+	}
+
+	public Joueur getJoueur(){
+		return joueur;
 	}
 	
 	

@@ -32,10 +32,10 @@ public class Partie {
 		String in2 = "";
 		int nbr;
 		if (player.getNbPoints() >= 20){
-			stud = new Etudiant(type, 4, 4, 4, 4, 4, new Aleatoire());
+			stud = new Etudiant(type, 4, 4, 4, 4, 4, new Offensive(), player);
 			player.setNbPoints(player.getNbPoints() - 20);
 		} else {
-			stud = new Etudiant(type, 0, 0, 0, 0, 0, new Aleatoire());
+			stud = new Etudiant(type, 0, 0, 0, 0, 0, new Offensive(), player);
 		}
 		player.addCombattant(stud);
 		do{
@@ -139,7 +139,7 @@ public class Partie {
 		Etudiant stud;
 		BufferedReader input = new BufferedReader (new InputStreamReader (System.in));
 		String in = "";
-		int nbr, i, stud_count;
+		int nbr, stud_count;
 		boolean min;
 		Random r = new Random();
 		while (itP.hasNext()){
@@ -260,14 +260,12 @@ public class Partie {
 		partie.addZone(new ZoneInfluence("halles industrielles", joueur1, joueur2));
 		partie.addZone(new ZoneInfluence("halles sportives", joueur1, joueur2));
 		partie.affecterTroupesZones();
-		// ZoneInfluence zoneConquise;
-		// Joueur joueurConquerant;
-		// while (partie.getJoueurGagnant() == null){
-		// 	zoneConquise = null;
-		// 	joueurConquerant = null;
-		// 	while (zoneConquise == null){
-		// 		partie.faireCombattre(zoneConquise, joueurConquerant);
-		// 	}
-		// }
+		ZoneInfluence zoneConquise;
+		Joueur joueurConquerant;
+		zoneConquise = null;
+		joueurConquerant = null;
+		while (zoneConquise == null){
+			partie.faireCombattre(zoneConquise, joueurConquerant);
+		}
 	}
 }
