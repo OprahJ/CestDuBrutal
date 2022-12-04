@@ -97,6 +97,7 @@ public class Joueur {
                             System.out.println("Vous ne pouvez pas retirer autant de points, l'étudiant est " + stud.getHierarchie());
                         }
                     }
+			else { System.out.println("Saisissez incorrecte : saisissez un chiffre inferieur");}
                     break;
 
                 case 'f':
@@ -108,6 +109,7 @@ public class Joueur {
                             System.out.println("Vous ne pouvez pas retirer autant de points, l'étudiant est " + stud.getHierarchie());
                         }
                     }
+		    else { System.out.println("Saisissez incorrecte : saisissez un chiffre inferieur");}
                     break;
 
                 case 'r':
@@ -119,6 +121,7 @@ public class Joueur {
                             System.out.println("Vous ne pouvez pas retirer autant de points, l'étudiant est " + stud.getHierarchie());
                         }
                     }
+		    else { System.out.println("Saisissez incorrecte : saisissez un chiffre inferieur");}
                     break;
 
                 case 'c':
@@ -130,6 +133,7 @@ public class Joueur {
                             System.out.println("Vous ne pouvez pas retirer autant de points, l'étudiant est " + stud.getHierarchie());
                         }
                     }
+		    else { System.out.println("Saisissez incorrecte : saisissez un chiffre inferieur");}
                     break;
 
                 case 'i':
@@ -141,6 +145,7 @@ public class Joueur {
                             System.out.println("Vous ne pouvez pas retirer autant de points, l'étudiant est " + stud.getHierarchie());
                         }
                     }
+		    else { System.out.println("Saisissez incorrecte : saisissez un chiffre inferieur");}
                     break;
 
                 default:
