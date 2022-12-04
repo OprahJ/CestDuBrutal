@@ -123,7 +123,7 @@ public class Etudiant {
 	}
 
 	public void earnEcts(int ects){
-		creditsEcts += ects;
+		creditsEcts = Math.min(ects + creditsEcts, 30);
 	}
 
 	public String toString(){

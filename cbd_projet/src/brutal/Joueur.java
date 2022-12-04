@@ -2,7 +2,6 @@ package brutal;
 import java.util.*;
 
 public class Joueur {
-	private int nbReservistes = 0;
     private int nbPoints = 400;
     private String nom;
     private ArrayList<Etudiant> combattants;
@@ -30,6 +29,10 @@ public class Joueur {
 
     public int getNbPoints(){
         return nbPoints;
+    }
+
+    public ArrayList<ZoneInfluence> getZonesControlees(){
+        return zonesControlees;
     }
 
     public int getNbZonesControlees(){
@@ -144,18 +147,37 @@ public class Joueur {
                     break;
 
                 default:
-                    System.out.println("Saisie incorrecte.\n");
+                    System.out.println("Saisie incorrecte.");
                     break;
 
             }
         } else {
-            System.out.println("Saisie incorrecte.\n");
+            System.out.println("Vous ne possédez pas assez de points");
+        }
+    }
+
+    public void attribuerStrategie(Etudiant stud, String strat){
+        switch (strat.toLowerCase().charAt(0)){
+            case 'a' :
+                stud.setStrategie(new Aleatoire());
+                break;
+            
+            case 'o' :
+                stud.setStrategie(new Offensive());
+                break;
+            
+            case 'd' :
+                stud.setStrategie(new Defensive());
+                break;
+            
+            default :
+                System.out.println("Saisie incorrecte.");
+                break;
         }
     }
 
     public void choisirReserviste(Etudiant stud){
-        if (!stud.getReserviste() && nbReservistes < 5){
-            nbReservistes++;
+        if (!stud.getReserviste() && this.getNbReservistes() < 5){
             stud.setReserviste(true);
         }
     }
@@ -166,7 +188,6 @@ public class Joueur {
 
     public void affecterEtuZone(Etudiant stud, ZoneInfluence zone){
         if (stud.getReserviste()){
-            nbReservistes--;
             stud.setReserviste(false);
         }
         stud.setZone(zone);
@@ -193,6 +214,20 @@ public class Joueur {
 			i++;
 			stud = itS.next();
 			if (stud.getZone() == null && !stud.getReserviste()){
+				System.out.println("Etudiant " + i + " | " + stud);
+			}
+		}
+    }
+
+    public void printEtudiantsReservistes(){
+        Etudiant stud;
+		int i = 0;
+		System.out.print("\n");
+		Iterator<Etudiant> itS = this.getEtudiants().iterator();
+		while (itS.hasNext()){
+			i++;
+			stud = itS.next();
+			if (stud.getZone() == null && stud.getReserviste()){
 				System.out.println("Etudiant " + i + " | " + stud);
 			}
 		}

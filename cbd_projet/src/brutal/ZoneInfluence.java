@@ -73,9 +73,9 @@ public class ZoneInfluence {
         }
     }
 
-    public ArrayList<Etudiant> getFilteredEtudiants (ArrayList<Etudiant> students, Joueur player){
+    public ArrayList<Etudiant> getFilteredEtudiants (Joueur player){
         ArrayList<Etudiant> results = new ArrayList<Etudiant>();
-        for (Etudiant stud: students){
+        for (Etudiant stud: etudiants){
             if (stud.getCreditsEcts() > 0 && stud.getJoueur().equals(player)){
                 results.add(stud);
             }
@@ -93,9 +93,9 @@ public class ZoneInfluence {
             stud = etudiants.get(0);
             if (stud.getCreditsEcts() > 0){
                 if (stud.getJoueur().equals(joueur1)){
-                    stud.getStrategie().agir(stud, this.getFilteredEtudiants(etudiants, joueur1), this.getFilteredEtudiants(etudiants, joueur2));
+                    stud.getStrategie().agir(stud, this.getFilteredEtudiants(joueur1), this.getFilteredEtudiants(joueur2));
                 } else {
-                    stud.getStrategie().agir(stud, this.getFilteredEtudiants(etudiants, joueur2), this.getFilteredEtudiants(etudiants, joueur1));
+                    stud.getStrategie().agir(stud, this.getFilteredEtudiants(joueur2), this.getFilteredEtudiants(joueur1));
                 }
             }
             etudiants.remove(stud);
@@ -129,6 +129,16 @@ public class ZoneInfluence {
         }
 
         return sum;
+    }
+
+    public String toString(){
+        StringBuffer sb;
+        if (joueurPossesseur == null){
+            sb = new StringBuffer("La zone " + nom + " contient " + this.getCredits() + " crédits, elle n'est pas encore conquise");
+        } else {
+            sb = new StringBuffer("La zone " + nom + " contient " + this.getCredits() + " crédits, elle est possédée par " + joueurPossesseur.getNom());
+        }
+        return sb.toString();
     }
 	// public static void main(String[] args) {
 	// }

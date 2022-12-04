@@ -3,5 +3,5 @@ package brutal;
 import java.util.*;
 
 public interface Strategie {
-	public void agir(Etudiant stud, List<Etudiant> allies, List<Etudiant> enemies);
+	public void agir(Etudiant stud, ArrayList<Etudiant> allies, ArrayList<Etudiant> enemies);
 }
