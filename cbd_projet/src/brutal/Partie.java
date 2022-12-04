@@ -151,7 +151,7 @@ public class Partie {
 				zone = itZ.next();
 				do{
 					player.printEtudiantsNonReservistes();
-					System.out.println(player.getNom() + " quel étudiant mettre dans la zone "  + zone.getNom() + " (vous devez en mettre au moins 1)");
+					System.out.println(player.getNom() + " quel étudiant mettre dans la zone "  + zone.getNom() + " (vous devez en mettre au moins 1)appuyez sur entrée pour passer à une autre zone");
 					try{
 						in = input.readLine();
 					}
