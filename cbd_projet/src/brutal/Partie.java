@@ -252,6 +252,7 @@ public class Partie {
 						filteredStudents = zoneComing.getFilteredEtudiants(player);
 						if (filteredStudents.size() > 1){
 							Iterator<Etudiant> itS = filteredStudents.iterator();
+							System.out.printf("\n");
 							i = 0;
 							while (itS.hasNext()){
 								i++;
@@ -271,6 +272,7 @@ public class Partie {
 									if (nbr > 0 && nbr <= filteredStudents.size()){
 										stud = filteredStudents.get(nbr - 1);
 										do{
+											System.out.printf("\n");
 											System.out.println(stud);
 											System.out.println("Veuillez entrer stratégie pour affecter une nouvelle stratégie à cet étudiant ou zone pour l'affecter à une nouvelle zone (appuyez sur enter pour terminer)");
 											try{
@@ -291,6 +293,7 @@ public class Partie {
 													player.attribuerStrategie(stud, str);
 												} else if (str.toLowerCase().charAt(0) == 'z'){
 													itZ = zones.iterator();
+													System.out.printf("\n");
 													i = 0;
 													while (itZ.hasNext()){
 														i++;
@@ -368,11 +371,11 @@ public class Partie {
 			if (!str.equals("")){
 				if (isInteger(str)){
 					nbr = Integer.parseInt(str);
-					if (nbr > 0 && nbr < player.getNbEtudiant()){
+					if (nbr > 0 && nbr <= player.getNbEtudiant()){
 						stud = player.getEtudiant(nbr - 1);
 						if (stud.getReserviste()){
-							System.out.println("Dans quel zone souhaitez-vous affecter ce réserviste ?");
 							Iterator<ZoneInfluence> it = zones.iterator();
+							System.out.printf("\n");
 							i = 0;
 							while (it.hasNext()){
 								i++;
@@ -381,6 +384,7 @@ public class Partie {
 									System.out.println(i + " : " + zone.getNom());
 								}
 							}
+							System.out.println("Dans quel zone souhaitez-vous affecter ce réserviste ?");
 							try{
 								str = input.readLine();
 							}
@@ -389,12 +393,12 @@ public class Partie {
 							}
 							if (isInteger(str)){
 								nbr = Integer.parseInt(str);
-								if (nbr > 0 && nbr < zones.size()){
+								if (nbr > 0 && nbr <= zones.size()){
 									zone = zones.get(nbr - 1);
 									if (zone.getJoueurPossesseur() == null){
 										stud.setReserviste(false);
 										player.affecterEtuZone(stud, zone);
-										System.out.println("L'étudiant " + nbr + " a été affecté à la zone " + zone.getNom());
+										System.out.println("Le réserviste a été affecté à la zone " + zone.getNom());
 									} else {
 										System.out.println("La zone " + zone.getNom() + " est déjà controlée par " + zone.getJoueurPossesseur().getNom());
 									}

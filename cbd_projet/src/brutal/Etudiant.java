@@ -119,7 +119,7 @@ public class Etudiant {
 	}
 	
 	public void loseEcts(int ects){
-		creditsEcts -= ects;
+		creditsEcts = Math.max(0,creditsEcts - ects);
 	}
 
 	public void earnEcts(int ects){
