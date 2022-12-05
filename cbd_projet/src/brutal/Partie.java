@@ -518,8 +518,19 @@ public class Partie {
 
 	public static void main(String[] args){
 		Partie partie = new Partie();
-		Joueur joueur1 = new Joueur("Lucas");
-		Joueur joueur2 = new Joueur("Morane");
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Quelle est le nom du joueur 1");
+		String j1 = sc.nextLine();
+		Joueur joueur1 = new Joueur(j1);
+		System.out.println("Saissisez le programme du joueur 1");
+		String prg1 = sc.nextLine();
+		joueur1.setProgramme(sc.nextLine());
+		System.out.println("Quelle est le nom du joueur 2");
+		String j2 = sc.nextLine();
+		Joueur joueur2 = new Joueur(j1);
+		System.out.println("Saissisez le programme du joueur 2");
+		String prg2 = sc.nextLine();
+		joueur1.setProgramme(sc.nextLine());
 		partie.addJoueur(joueur1);
 		partie.addJoueur(joueur2);
 		partie.parametrerTroupes();
