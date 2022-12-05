@@ -5,7 +5,8 @@ public class Joueur {
     private int nbPoints = 400;
     private String nom;
     private ArrayList<Etudiant> combattants;
-    private ArrayList<ZoneInfluence> zonesControlees;  private String programme; 
+    private ArrayList<ZoneInfluence> zonesControlees;  
+    private String programme; 
 
     // Constructor
     public Joueur(String name){
