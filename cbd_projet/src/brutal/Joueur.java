@@ -5,15 +5,25 @@ public class Joueur {
     private int nbPoints = 400;
     private String nom;
     private ArrayList<Etudiant> combattants;
-    private ArrayList<ZoneInfluence> zonesControlees;
+    private ArrayList<ZoneInfluence> zonesControlees;  private String programme; 
 
     // Constructor
     public Joueur(String name){
         nom = name;
         combattants = new ArrayList<Etudiant>();
         zonesControlees = new ArrayList<ZoneInfluence>();
+        this.setProgramme(programme); 
     }
 
+
+    public String getProgramme() {
+		return programme;
+	}
+
+
+	public void setProgramme(String programme) {
+		this.programme = programme;
+	}
 
     // Getters
     public int getNbReservistes(){
