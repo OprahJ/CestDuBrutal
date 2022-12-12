@@ -10,7 +10,6 @@ public class Etudiant {
 	private int initiative;
 	private int creditsEcts = 30;
 	private String hierarchie = "normal";
-	private String programme;
 	private Strategie strategie;
 	private ZoneInfluence zone = null;
 	private Joueur joueur = null;

@@ -9,8 +9,9 @@ public class Joueur {
     private String programme; 
 
     // Constructor
-    public Joueur(String name){
+    public Joueur(String name, String prgm){
         nom = name;
+        programme = prgm;
         combattants = new ArrayList<Etudiant>();
         zonesControlees = new ArrayList<ZoneInfluence>();
         this.setProgramme(programme); 

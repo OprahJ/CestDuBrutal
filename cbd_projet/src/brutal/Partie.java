@@ -518,19 +518,40 @@ public class Partie {
 
 	public static void main(String[] args){
 		Partie partie = new Partie();
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Quelle est le nom du joueur 1");
-		String j1 = sc.nextLine();
-		Joueur joueur1 = new Joueur(j1);
-		System.out.println("Saissisez le programme de "+j1);
-		String prg1 = sc.nextLine();
-		joueur1.setProgramme(sc.nextLine());
-		System.out.println("Quelle est le nom du joueur 2");
-		String j2 = sc.nextLine();
-		Joueur joueur2 = new Joueur(j2);
-		System.out.println("Saissisez le programme de "+j2);
-		String prg2 = sc.nextLine();
-		joueur2.setProgramme(sc.nextLine());
+		BufferedReader input = new BufferedReader (new InputStreamReader (System.in));
+		String nom = "";
+		String prgm = "";
+		System.out.println("Quelle est le nom du joueur 1 ?");
+		try{
+			nom = input.readLine();
+		}
+		catch(IOException IOE){
+			IOE.printStackTrace();
+		}
+		System.out.println("Saissisez le programme de " + nom);
+		try{
+			prgm = input.readLine();
+		}
+		catch(IOException IOE){
+			IOE.printStackTrace();
+		}
+		Joueur joueur1 = new Joueur(nom, prgm);
+		System.out.println("Quelle est le nom du joueur 2 ?");
+		try{
+			nom = input.readLine();
+		}
+		catch(IOException IOE){
+			IOE.printStackTrace();
+		}
+		System.out.println("Saissisez le programme de " + nom);
+		try{
+			prgm = input.readLine();
+		}
+		catch(IOException IOE){
+			IOE.printStackTrace();
+		}
+		Joueur joueur2 = new Joueur(nom, prgm);
+
 		partie.addJoueur(joueur1);
 		partie.addJoueur(joueur2);
 		partie.parametrerTroupes();
