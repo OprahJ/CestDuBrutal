@@ -1,7 +1,6 @@
 package brutal;
 
 import java.util.*;
-import java.util.Random;
 
 public class ZoneInfluence {
     private String nom;
